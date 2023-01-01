@@ -14,13 +14,26 @@ class UserRepository {
 
     async destroy(userId){
         try {
-            const user = await User.destroy({
+             await User.destroy({
                 where: {
                     id: userId
                 }
             });
             return true;
             
+        } catch (error) {
+            console.log("Something Went Wrong on Repository Layer");
+            throw error;
+        }
+    }
+
+    async getById(userId){
+        try {
+           const user = await User.findByPk(userId,{
+            attributes: [ 'email', 'id' ,'password' ]
+           } );
+          
+           return user;
         } catch (error) {
             console.log("Something Went Wrong on Repository Layer");
             throw error;
