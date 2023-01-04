@@ -8,8 +8,11 @@ const { PORT } = require('./config/serverConfig');
 const apiRoutes = require('./routes/index');
 
 const UserService = require ('./services/user-service');
-
+const DB = require('./models/index');
+const db = require('./models/index');
 //const UserRepository = require('./repository/user-repository');
+
+//const {User, Role} = require('./models/index');
 
 const prepareAndStartServer = () => {
 
@@ -21,8 +24,19 @@ const prepareAndStartServer = () => {
 
  app.listen(PORT, async() => {
     console.log(`Server Get Started on Port: ${PORT}` );
+    if(process.env.DB_SYNC){
+      db.sequelize.sync({alter: true});
+    }
 
-    const service = new UserService();
+    //Add role to the user
+    // const u1 = await User.findByPk(5);//user
+    // const r1 = await Role.findByPk(2);//role
+    // // u1.addRole(r1);
+    // // const response = await u1.getRoles();
+    // console.log(response);
+
+    //verification check
+    // const service = new UserService();
     // const newToken = service.createToken({email:'John@admin.com', id:1});
     // console.log("New Token is ", newToken);
 
