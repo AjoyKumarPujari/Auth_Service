@@ -9,7 +9,7 @@ class UserRepository {
         } catch (error) {
             if(error.name == 'sequelizeValidationError'){
                 // let validationError = new ValidationError(error);
-                // console.log(validationError);
+                // console.log(error.name);
                 throw new ValidationError(error);
             }    
             console.log("Something Went Wrong on Repository Layer");
@@ -52,8 +52,13 @@ class UserRepository {
                     email:userEmail
                 }
             });
+            if(!user){
+                
+            }
+
             return user;
         } catch (error) {
+            con
             console.log("Something went wrong in the REpository layer while comparing the password", error);
             throw error;
         }
